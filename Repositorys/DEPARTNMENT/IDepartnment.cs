@@ -13,7 +13,6 @@ namespace Repositorys.DEPARTNMENT
         Task<bool> DeleteDepartnment(int id);
         Task<bool> UpdateDepartnmetn(UpdateDepartnmentDTO updtatdep);
         Task<List<GetAllDepartnmentDTO>> GetAllDepartnment();
-
-
+        Task<GetAllDepartnmentDTO> GetDepartnmentbyid(int id);
     }
 }

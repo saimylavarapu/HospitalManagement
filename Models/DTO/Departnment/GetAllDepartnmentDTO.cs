@@ -13,13 +13,7 @@ namespace Models.DTO.Departnment
 
         public string DepartnmentName { get; set; }
 
-        public DateTime CretedDate { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public bool IsDelete { get; set; }
+       
 
     }
 }

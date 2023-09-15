@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -29,7 +30,6 @@ namespace Repositorys.DEPARTNMENT
                 dep.IsActive = true;
                 dep.IsDelete = false;
                 dep.CretedDate = DateTime.UtcNow;
-               dep.ModifiedDate = DateTime.UtcNow;
                 await _dbContext.Departments.AddAsync(dep);
                 await  _dbContext.SaveChangesAsync();
                 return true;
@@ -65,11 +65,35 @@ namespace Repositorys.DEPARTNMENT
             }
         }
 
-        public Task<List<GetAllDepartnmentDTO>> GetAllDepartnment()
+        public async Task<List<GetAllDepartnmentDTO>> GetAllDepartnment()
         {
             try
             {
-          
+                var res = await _dbContext.Departments.Where(x=>x.IsActive&& !x.IsDelete).Select(x=>new GetAllDepartnmentDTO()
+                {
+                    PkDepartnemtId = x.PkDepartnemtId,
+                    DepartnmentName = x.DepartnmentName
+                }).ToListAsync();
+
+                return res;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<GetAllDepartnmentDTO> GetDepartnmentbyid(int id)
+        {
+            try
+            {
+                var emp = await _dbContext.Departments.Where(x => x.PkDepartnemtId == id && x.IsActive && !x.IsDelete )
+                    .Select(x => new GetAllDepartnmentDTO
+                    {
+                       PkDepartnemtId= x.PkDepartnemtId,
+                       DepartnmentName= x.DepartnmentName
+
+                    }).FirstOrDefaultAsync();
+                return emp;
             }
             catch(Exception ex)
             {

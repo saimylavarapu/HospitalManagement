@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models.DTO.Departnment;
 using Repositorys.DEPARTNMENT;
+using System.Formats.Asn1;
 
 namespace AngularEcommers.Controllers
 {
@@ -9,21 +10,21 @@ namespace AngularEcommers.Controllers
     [ApiController]
     public class DepartnmentController : ControllerBase
     {
-        private readonly IDepartnment _Dp;
+        private readonly IDepartnment _departnment;
 
-        public DepartnmentController(IDepartnment Dp)
+        public DepartnmentController(IDepartnment departnment)
         {
-            _Dp= Dp;
+           _departnment = departnment;
         }
 
 
         [HttpPost]
-        [Route("AddDepartnment")]
-        public async Task<IActionResult> AddDep(AddDepartnemtDTO add)
+        [Route("AddDepartnmet")]
+        public async Task<IActionResult> AddDepartnmetn(AddDepartnemtDTO add)
         {
             if(ModelState.IsValid)
             {
-                await _Dp.AddDepartnmetn(add);
+                await _departnment.AddDepartnmetn(add);
                 return Ok();    
             }
             else
@@ -34,12 +35,12 @@ namespace AngularEcommers.Controllers
 
 
         [HttpDelete]
-        [Route("deleteDepartnment")]
-        public async Task<IActionResult> DeleteDep(int id)
+        [Route("DeleteDepartnment")]
+        public async Task<IActionResult> DeleteDepartnment(int id)
         {
             if(ModelState.IsValid)
             {
-                   await _Dp.DeleteDepartnment(id);
+                   await _departnment.DeleteDepartnment(id);
                 return Ok();
             }
             else
@@ -50,17 +51,46 @@ namespace AngularEcommers.Controllers
 
 
         [HttpPut]
-        [Route("updateDepartnmet")]
-        public async Task<IActionResult> updatedepartnment(UpdateDepartnmentDTO pd)
+        [Route("UpdateDepartnmetn")]
+        public async Task<IActionResult> UpdateDepartnmetn(UpdateDepartnmentDTO pd)
         {
             if(ModelState.IsValid)
             {
-                await _Dp.UpdateDepartnmetn(pd);
+                await _departnment.UpdateDepartnmetn(pd);
                 return Ok();
             }
             else
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("GetAllDepartnment")]
+        public async Task<ActionResult<List<GetAllDepartnmentDTO>>> GetAllDepartnment()
+        {
+            try
+            {
+                var usr=await _departnment.GetAllDepartnment();
+                return usr;
+            }
+           catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpGet]
+        [Route("GetDepartnmentbyid")]
+        public async Task<GetAllDepartnmentDTO> GetDepartnmentbyid(int id)
+        {
+            try
+            {
+               var res= await _departnment.GetDepartnmentbyid(id);
+                return res; 
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
 
