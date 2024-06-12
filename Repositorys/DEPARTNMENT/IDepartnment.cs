@@ -9,7 +9,7 @@ namespace Repositorys.DEPARTNMENT
 {
    public interface IDepartnment
     {
-        Task<bool> AddDepartnmetn(AddDepartnemtDTO adddepartment);
+       public  Task<bool> AddDepartnmetn(AddDepartnemtDTO adddepartment);
         Task<bool> DeleteDepartnment(int id);
         Task<bool> UpdateDepartnmetn(UpdateDepartnmentDTO updtatdep);
         Task<List<GetAllDepartnmentDTO>> GetAllDepartnment();

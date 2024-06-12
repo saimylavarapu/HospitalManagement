@@ -12,6 +12,10 @@ namespace Models.Models
     [Table("Departnment")]
     public class Departnment
     {
+        public Departnment()
+        {
+            Doctors = new List<Doctor>();
+        }
         #region Properties
         [Key]
         
@@ -28,9 +32,11 @@ namespace Models.Models
         public bool IsActive { get; set; }  
 
         public bool IsDelete { get; set; }
-
-
         #endregion
-       
+        #region Associations
+        [InverseProperty("Departnment")]
+        public IList<Doctor> Doctors { get; set; } 
+        #endregion
+
     }
 }

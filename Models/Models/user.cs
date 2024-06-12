@@ -37,27 +37,14 @@ namespace Models.Models
         [Column(TypeName = "VARCHAR")]
         [StringLength(PHONELENGTH)]
         public string? PhoneNumber { get; set; }
-
-       
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(AVATARYRLLENGTH)]
-        public string? Avatar { get; set; }
-
-        public DateTime CretedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(BIOLENGTH)]
-        public string? Bio { get; set; }
-
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(BIOLENGTH)]
-        public string? Comapany { get; set; }
-
-       
+        #endregion
+        #region Associations
+        [ForeignKey("FKDoctorId")]
+        public Doctor Doctor { get; set;}
+        public int FKDoctorId { get; set; }
         #endregion
     }
 
-   
+
 
 }

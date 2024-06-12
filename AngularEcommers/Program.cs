@@ -13,6 +13,7 @@ builder.Services.AddDbContext<DatabaseContext>(Options =>
 {
     Options.UseSqlServer(builder.Configuration.GetConnectionString("Dbcontest"));
 });
+
 builder.Services.AddTransient<IDepartnment, Departnments>();
 
 var app = builder.Build();

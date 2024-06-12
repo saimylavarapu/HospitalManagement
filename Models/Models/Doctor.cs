@@ -11,7 +11,11 @@ namespace Models.Models
     [Table("Doctor")]
     public  class Doctor
     {
-        #region
+        public Doctor()
+        {
+            Users = new List<user>();
+        }
+        #region Properties
         [Key]
         public int PkDoctorId { get; set; }
         [Required]
@@ -35,8 +39,11 @@ namespace Models.Models
         public bool IsDelete { get; set; }
 
         [ForeignKey("FkDepartmentId")]
-        public Departnment Department { get; set; }
+        public Departnment Departnment { get; set; }
         public int FkDepartmentId { get; set; }
+        [InverseProperty("Doctor")]
+        public IList<user> Users { get; set; } 
+
         #endregion
     }
 }
