@@ -18,8 +18,7 @@ namespace Models.Models
         }
         #region Properties
         [Key]
-        
-        public int PkDepartnemtId { get; set; }
+        public int pkDepartnemtid { get; set; }
 
         [Required]
       

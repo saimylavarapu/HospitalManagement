@@ -9,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DatabaseContext>(Options =>
+builder.Services.AddDbContext<DatabaseContext>(x =>
 {
-    Options.UseSqlServer(builder.Configuration.GetConnectionString("Dbcontest"));
+    x.UseSqlServer(builder.Configuration.GetConnectionString("Dbcontest"));
 });
 
 builder.Services.AddTransient<IDepartnment, Departnments>();

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Repositorys.DEPARTNMENT
 {
-   public interface IDepartnment
+   public interface IDepartnmentRepo
     {
-       public  Task<bool> AddDepartnmetn(AddDepartnemtDTO adddepartment);
+        Task<bool> AddDepartnmetn(AddDepartnemtDTO adddepartment);
         Task<bool> DeleteDepartnment(int id);
         Task<bool> UpdateDepartnmetn(UpdateDepartnmentDTO updtatdep);
         Task<List<GetAllDepartnmentDTO>> GetAllDepartnment();

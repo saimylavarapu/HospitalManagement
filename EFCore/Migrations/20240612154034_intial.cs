@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class intail : Migration
+    public partial class intial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace EFCore.Migrations
                 name: "Departnment",
                 columns: table => new
                 {
-                    PkDepartnemtId = table.Column<int>(type: "int", nullable: false)
+                    pkDepartnemtid = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DepartnmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CretedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -25,27 +25,7 @@ namespace EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departnment", x => x.PkDepartnemtId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "INT", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false),
-                    Name = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "VARCHAR(30)", maxLength: 30, nullable: false),
-                    Avatar = table.Column<string>(type: "VARCHAR(2000)", maxLength: 2000, nullable: true),
-                    CretedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Bio = table.Column<string>(type: "VARCHAR(5000)", maxLength: 5000, nullable: true),
-                    Comapany = table.Column<string>(type: "VARCHAR(5000)", maxLength: 5000, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Departnment", x => x.pkDepartnemtid);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +50,29 @@ namespace EFCore.Migrations
                         name: "FK_Doctor_Departnment_FkDepartmentId",
                         column: x => x.FkDepartmentId,
                         principalTable: "Departnment",
-                        principalColumn: "PkDepartnemtId",
+                        principalColumn: "pkDepartnemtid",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "INT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false),
+                    Name = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "VARCHAR(30)", maxLength: 30, nullable: false),
+                    FKDoctorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Users_Doctor_FKDoctorId",
+                        column: x => x.FKDoctorId,
+                        principalTable: "Doctor",
+                        principalColumn: "PkDoctorId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -78,16 +80,21 @@ namespace EFCore.Migrations
                 name: "IX_Doctor_FkDepartmentId",
                 table: "Doctor",
                 column: "FkDepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_FKDoctorId",
+                table: "Users",
+                column: "FKDoctorId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Doctor");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Doctor");
 
             migrationBuilder.DropTable(
                 name: "Departnment");

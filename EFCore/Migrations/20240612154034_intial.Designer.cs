@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240612123402_modelschanges")]
-    partial class modelschanges
+    [Migration("20240612154034_intial")]
+    partial class intial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace EFCore.Migrations
 
             modelBuilder.Entity("Models.Models.Departnment", b =>
                 {
-                    b.Property<int>("PkDepartnemtId")
+                    b.Property<int>("pkDepartnemtid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PkDepartnemtId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("pkDepartnemtid"));
 
                     b.Property<DateTime>("CretedDate")
                         .HasColumnType("datetime2");
@@ -49,7 +49,7 @@ namespace EFCore.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("PkDepartnemtId");
+                    b.HasKey("pkDepartnemtid");
 
                     b.ToTable("Departnment");
                 });

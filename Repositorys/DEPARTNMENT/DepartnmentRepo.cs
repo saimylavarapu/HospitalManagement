@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace Repositorys.DEPARTNMENT
 {
-    public class Departnments : IDepartnment
+    public class DepartnmentRepo : IDepartnmentRepo
     {
         private readonly DatabaseContext _dbContext;
-        public Departnments(DatabaseContext db)
+        public DepartnmentRepo(DatabaseContext db)
         {
             _dbContext= db;
         }
@@ -46,7 +46,7 @@ namespace Repositorys.DEPARTNMENT
         {
             try
             {
-                var task = _dbContext.Departments.Where(x => x.PkDepartnemtId == id).FirstOrDefault();
+                var task = _dbContext.Departments.Where(x => x.pkDepartnemtid == id).FirstOrDefault();
                 if (task != null)
                 {
                     task.IsDelete = true;
@@ -71,7 +71,7 @@ namespace Repositorys.DEPARTNMENT
             {
                 var res = await _dbContext.Departments.Where(x=>x.IsActive&& !x.IsDelete).Select(x=>new GetAllDepartnmentDTO()
                 {
-                    PkDepartnemtId = x.PkDepartnemtId,
+                    PkDepartnemtId = x.pkDepartnemtid,
                     DepartnmentName = x.DepartnmentName
                 }).ToListAsync();
 
@@ -86,10 +86,10 @@ namespace Repositorys.DEPARTNMENT
         {
             try
             {
-                var emp = await _dbContext.Departments.Where(x => x.PkDepartnemtId == id && x.IsActive && !x.IsDelete )
+                var emp = await _dbContext.Departments.Where(x => x.pkDepartnemtid == id && x.IsActive && !x.IsDelete )
                     .Select(x => new GetAllDepartnmentDTO
                     {
-                       PkDepartnemtId= x.PkDepartnemtId,
+                       PkDepartnemtId= x.pkDepartnemtid,
                        DepartnmentName= x.DepartnmentName
 
                     }).FirstOrDefaultAsync();
@@ -105,7 +105,7 @@ namespace Repositorys.DEPARTNMENT
         {
             try
             {
-                var dep = _dbContext.Departments.Where(x=> x.PkDepartnemtId== updtatdep.Id).FirstOrDefault();
+                var dep = _dbContext.Departments.Where(x=> x.pkDepartnemtid== updtatdep.Id).FirstOrDefault();
                if(dep != null)
                 {
                     dep.DepartnmentName = updtatdep.DepartnmentName;
